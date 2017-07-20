@@ -23,7 +23,7 @@ export const SearchButton = styled.a`
     background-color: white;
     color: #404ec1;
   }
-  transition: all 0.5s;
+  transition: all 0.15s;
   transition-property: color, background;
 `;
 
@@ -50,6 +50,6 @@ export const SearchInput = styled.input`
     color: white;
   }
   
-  transition: all 0.5s;
+  transition: all 0.15s;
   transition-property: color, background;
 `;

@@ -22,7 +22,7 @@ class App extends React.Component<{}, {flipped: boolean}> {
       this.setState({flipped: !this.state.flipped})
       setTimeout(() => {
         flip();
-      }, 1000);
+      }, 3000);
     }
     flip();
   }

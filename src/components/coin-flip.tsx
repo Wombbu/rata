@@ -1,10 +1,11 @@
 import * as React from "react";
 import styled, { css } from "styled-components";
+// import FadeImage from "./fade-image";
 
 const CoinContainer = styled.div`
   perspective: 1000px;
   width: 320px;
-	height: 480px;
+	height: 320px;
 `;
 
 const Coin = styled.div`
@@ -19,13 +20,19 @@ const Coin = styled.div`
 
 const Heads = styled.div`
   width: 320px;
-	height: 480px;
-  backface-visibility: hidden;
+	height: 320px;
+  border-radius: 160px;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backface-visibility: hidden;
+  background-color: palevioletred;
 	position: absolute;
 	top: 0;
 	left: 0;
-  background-color: white;
+  display: flex;
 
   z-index: 2;
 	/* for firefox 31 */
@@ -34,9 +41,13 @@ const Heads = styled.div`
 
 const Tails = styled.div`
   width: 320px;
-	height: 480px;
+	height: 320px;
+  border-radius: 160px;
+  background-color: white;
   backface-visibility: hidden;
-  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
 	position: absolute;
 	top: 0;
@@ -49,10 +60,11 @@ export default (props: {flipped: boolean}) =>
   <CoinContainer>
     <Coin flipped={props.flipped}>
       <Heads>
-        <h1> heads </h1>
+        {/* <FadeImage onLoad={() => console.log('loaded')} /> */}
+        <h1> Rata </h1>
       </Heads>
       <Tails>
-        <h1> tails </h1>
+        <h1> Loading... </h1>
       </Tails>
     </Coin>
   </CoinContainer>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { GradientPage } from '../../components/pages';
 import { InputWrapper, SearchButton, SearchInput } from '../../components/inputs';
-import FadeImage from '../../components/fade-image';
+// import FadeImage from '../../components/fade-image';
 import CoinFlip from '../../components/coin-flip';
 
 interface FrontPageProps {
@@ -26,6 +26,7 @@ const FrontPageWrapper = GradientPage.extend`
 const LogoContainer = styled.div`
   height: 50vh;
   display: flex;
+  flex-direction: column;
 `;
 
 const InputArea = (props: {placeholder: string}) => (
@@ -47,10 +48,9 @@ export const FrontPage = (props: FrontPageProps) => (
     color2="#14f3eb"
   >
     <LogoContainer>
-        <FadeImage onLoad={() => console.log('loaded')} />
+      <CoinFlip flipped={props.flipped} />
+      <Title> Rata </Title>
     </LogoContainer>
-    <CoinFlip flipped={props.flipped} />
-    <Title> Rata </Title>
     <InputArea placeholder="Station" />
     <InputArea placeholder="Train number" />
   </FrontPageWrapper>
