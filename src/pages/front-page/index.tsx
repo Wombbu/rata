@@ -48,7 +48,7 @@ export const FrontPage = (props: FrontPageProps) => (
     color2="#14f3eb"
   >
     <LogoContainer>
-      <CoinFlip flipped={props.flipped} />
+      <CoinFlip flipped={props.flipped} size={320} />
       <Title> Rata </Title>
     </LogoContainer>
     <InputArea placeholder="Station" />

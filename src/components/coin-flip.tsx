@@ -1,15 +1,27 @@
 import * as React from "react";
 import styled, { css } from "styled-components";
-// import FadeImage from "./fade-image";
 
-const CoinContainer = styled.div`
-  perspective: 1000px;
-  width: 320px;
-	height: 320px;
+interface SizeProps {
+  size: number;
+}
+
+interface FlipperProps {
+  flipped: boolean;
+}
+
+const DynamicSize = styled.div`
+  ${(props: SizeProps) => css`
+    width: ${props.size}px;
+    height: ${props.size}px;
+  `}
 `;
 
-const Coin = styled.div`
-  ${(props: {flipped: boolean}) => props.flipped ? css`
+const CoinContainer = DynamicSize.extend`
+  perspective: 1000px;
+`;
+
+const CoinFlipper = styled.div`
+  ${(props: FlipperProps) => props.flipped ? css`
       transform: rotateY(180deg);
     ` : ''}
   transition: 0.6s;
@@ -18,53 +30,40 @@ const Coin = styled.div`
 	position: relative;
 `;
 
-const Heads = styled.div`
-  width: 320px;
-	height: 320px;
-  border-radius: 160px;
+const CoinFace = DynamicSize.extend`
+  ${(props: SizeProps) => css`
+    border-radius: ${props.size / 2}px;
+  `}
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   backface-visibility: hidden;
-  background-color: palevioletred;
+  background-color: white;
 	position: absolute;
 	top: 0;
 	left: 0;
-  display: flex;
+`;
 
+const Heads = CoinFace.extend`
   z-index: 2;
-	/* for firefox 31 */
 	transform: rotateY(0deg);
 `;
 
-const Tails = styled.div`
-  width: 320px;
-	height: 320px;
-  border-radius: 160px;
-  background-color: white;
-  backface-visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-	position: absolute;
-	top: 0;
-	left: 0;
-
+const Tails = CoinFace.extend`
   transform: rotateY(180deg);
 `;
 
-export default (props: {flipped: boolean}) =>
-  <CoinContainer>
-    <Coin flipped={props.flipped}>
-      <Heads>
+export default (props: SizeProps & FlipperProps) =>
+  <CoinContainer size={props.size}>
+    <CoinFlipper flipped={props.flipped}>
+      <Heads size={props.size}>
         {/* <FadeImage onLoad={() => console.log('loaded')} /> */}
         <h1> Rata </h1>
       </Heads>
-      <Tails>
+      <Tails size={props.size}>
         <h1> Loading... </h1>
       </Tails>
-    </Coin>
+    </CoinFlipper>
   </CoinContainer>
