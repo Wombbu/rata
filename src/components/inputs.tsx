@@ -4,7 +4,7 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 71%;
+  width: 85%;
   max-width: 300px;
   margin: 5px;
 `;

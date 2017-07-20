@@ -29,7 +29,7 @@ class App extends React.Component<{}, {flipped: boolean}> {
   render() {
     return (
       <AppWrapper>
-        <FrontPage padding={100} flipped={this.state.flipped} />
+        <FrontPage flipped={this.state.flipped} />
       </AppWrapper>
     );
   }

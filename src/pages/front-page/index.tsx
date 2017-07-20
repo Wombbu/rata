@@ -6,7 +6,6 @@ import { InputWrapper, SearchButton, SearchInput } from '../../components/inputs
 import { OneSidedCoin } from '../../components/coin-flip';
 
 interface FrontPageProps {
-  padding: number; 
   flipped: boolean;
 }
 
