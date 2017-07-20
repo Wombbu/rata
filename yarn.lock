@@ -23,6 +23,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-responsive@^1.1.8":
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-1.1.8.tgz#65f2072f1fa809c5e19952120c85c53c1b861bda"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^15.0.38":
   version "15.0.38"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.38.tgz#6afea31a9fe66304af474106ba372ddaba449995"

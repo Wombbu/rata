@@ -28,7 +28,7 @@ export class FadeImage extends React.Component<{onLoad: () => void}, {loaded: bo
         <ImageWithFade 
           onLoad={() => this.setState({loaded: true})}
           loaded={this.state.loaded}
-          src="http://mtandt.com/wp-content/uploads/revslider/customerserive/grey-circle-.png"
+          src="https://lh3.googleusercontent.com/yjXsAg2VZgJPz5NTH30Qejo0EOJChzdKzzQWCn_DMIUOvc5E_AJYX3Vx3oLyG4BA3SxF=w300-rw"
         />
       </ImageWrapper>
     )

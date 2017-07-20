@@ -16,8 +16,8 @@ class App extends React.Component<{}, {flipped: boolean}> {
 
   constructor() {
     super();
-    this.state = { flipped: false };
-
+    this.state = { flipped: true };
+    // this.setState({flipped: !this.state.flipped})
     const flip = () => {
       this.setState({flipped: !this.state.flipped})
       setTimeout(() => {

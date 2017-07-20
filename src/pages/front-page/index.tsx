@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { GradientPage } from '../../components/pages';
 import { InputWrapper, SearchButton, SearchInput } from '../../components/inputs';
 // import FadeImage from '../../components/fade-image';
-import CoinFlip from '../../components/coin-flip';
+import { OneSidedCoin } from '../../components/coin-flip';
 
 interface FrontPageProps {
   padding: number; 
@@ -14,19 +14,27 @@ const Title = styled.h1`
   align-self: center;
   color: white;
   text-align: center;
+  font-weight: lighter;
+  font-size: 7em;
+  opacity: 0.6;
+  margin: 10px;
+  margin-top: 20px;
 `;
 
 const FrontPageWrapper = GradientPage.extend`
-  justify-content: center;
+  justify-content: space-between;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
 `;
 
 const LogoContainer = styled.div`
-  height: 50vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  padding-top: 20px;
+  padding-bottom: 50px;
 `;
 
 const InputArea = (props: {placeholder: string}) => (
@@ -47,11 +55,11 @@ export const FrontPage = (props: FrontPageProps) => (
     color1="#404ec1" 
     color2="#14f3eb"
   >
+    <Title> RAIDE </Title>
+    <OneSidedCoin flipped={props.flipped} size={280} />
     <LogoContainer>
-      <CoinFlip flipped={props.flipped} size={320} />
-      <Title> Rata </Title>
+      <InputArea placeholder="Station" />
+      <InputArea placeholder="Train number" />
     </LogoContainer>
-    <InputArea placeholder="Station" />
-    <InputArea placeholder="Train number" />
   </FrontPageWrapper>
 );
