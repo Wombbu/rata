@@ -10,15 +10,20 @@ export const InputWrapper = styled.div`
 `;
 
 export const SearchButton = styled.a`
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 	border-radius: 2px;
-	width: 6rem;
+	width: 6em;
+  height: 2em;
+  min-height: 2em;
 	background: transparent;
 	color: white;
-  padding: 10px;
   border: 1.3px solid rgba(255, 255, 255, .5);;
   align-self: flex-end;
   text-align: center;
+  font-weight: lighter;
+
   &:hover {
     background-color: white;
     color: #404ec1;
@@ -32,11 +37,13 @@ export const SearchInput = styled.input`
   color: white;
   border: 1.3px solid rgba(255, 255, 255, .5);;
   border-radius: 2px;
-  font-size: 120%;
-  height: 2rem;
+  font-size: 1em;
+  height: 2em;
+  min-height: 2em;
   margin-bottom: 10px;
-  padding: 3px;
   padding-left: 6px;
+  font-weight: lighter;
+
   ::-webkit-input-placeholder {
     color: white;
   }

@@ -4,7 +4,8 @@ import styled from "styled-components";
 const ImageWithFade = styled.img`
   transition: opacity 0.8s;
   opacity: ${(props: {loaded: boolean}) => props.loaded ? '1' : '0'};
-  height: 100%; /* to make the image re
+  height: 100%;
+  z-index: 100;
 `;
 
 /**
@@ -16,7 +17,7 @@ const ImageWrapper = styled.div`
   justify-content: center;
 `;
 
-export class FadeImage extends React.Component<{onLoad: () => void}, {loaded: boolean}> {
+export class FadeImage extends React.Component<{onLoad?: () => void, imgRef?: (i: HTMLElement) => void}, {loaded: boolean}> {
   constructor() {
     super();
     this.state = { loaded: false };

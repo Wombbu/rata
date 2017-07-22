@@ -1,7 +1,5 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
-import FadeImage from './fade-image';
-// import { LoadingIndicator } from './loading-indicator';
 
 interface SizeProps {
   size: number;
@@ -63,16 +61,17 @@ const Tails = CoinFace.extend`
 
 interface CoinProps extends SizeProps {
   flipped: boolean;
+  children?: any;
 }
 
 export const TwoSidedCoin = (props: CoinProps) =>
   <CoinContainer size={props.size}>
     <CoinFlipper flipped={props.flipped} flipDegrees={180}>
       <Heads size={props.size}>
-        <FadeImage onLoad={() => console.log('loaded')} />
+        { props.children }
       </Heads>
       <Tails size={props.size}>
-        <FadeImage onLoad={() => console.log('loaded')} />
+        { props.children }
       </Tails>
     </CoinFlipper>
   </CoinContainer>;
@@ -81,7 +80,7 @@ export const OneSidedCoin = (props: CoinProps) =>
   <CoinContainer size={props.size}>
     <CoinFlipper flipped={props.flipped} flipDegrees={360}>
       <OneSidedCoinFace size={props.size}>
-        <FadeImage onLoad={() => console.log('loaded')} />
+        { props.children }
       </OneSidedCoinFace>
     </CoinFlipper>
-  </CoinContainer>
+  </CoinContainer>;
