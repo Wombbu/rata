@@ -1,16 +1,17 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { InputWrapper, SearchField } from '../../components/inputs';
+import { SearchField } from '../../components/inputs';
 import InteractiveLogo from '../../page-components/interactive-logo';
 import { Page } from '../../components/pages';
-import { Title, CustomSizeText, TempList } from '../../components/text';
+import { Title, CustomSizeText } from '../../components/text';
+import { Suggestions } from '../../page-components/suggestions';
 
 interface FrontPageProps {
   flipped: boolean;
 }
 
 const FrontPageWrapper = Page.extend`
-  justify-content: space-around;
+  justify-content: center;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -19,7 +20,7 @@ const FrontPageWrapper = Page.extend`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   width: 80%;
   max-width: 300px;
 `;
@@ -28,13 +29,16 @@ const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 3vh;
 `;
 
-const InputArea = (props: {placeholder: string}) => (
-  <InputWrapper>
-    <SearchField type="text" placeholder={props.placeholder}/>
-  </InputWrapper>
-);
+const InfoText = CustomSizeText.extend`
+  padding: 10px 0px 6.18px 0px;
+`;
+
+const InfoTextWithBorder = InfoText.extend`
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+`;
 
 export default (props: FrontPageProps) => (
   <FrontPageWrapper>
@@ -42,15 +46,17 @@ export default (props: FrontPageProps) => (
       <Title> RAIDE </Title>
       <InteractiveLogo loading={props.flipped}/>
     </LogoWrapper>
-    <div />
       <InputContainer>
-        <CustomSizeText style={{ borderBottom: "1px solid rgba(255,255,255,0.5)",padding: "10px", alignSelf: "flex-start"}} size={1}> valitse yleisimmistä </CustomSizeText>
-        <TempList size={1.5}>Helsingin asema</TempList>
-        <TempList size={1.5}>IC 49</TempList>
-        <TempList size={1.5}>Tampere</TempList>
-        <CustomSizeText style={{padding: "10px", alignSelf: "flex-start"}} size={1}> tai </CustomSizeText>
-        <InputArea placeholder="Kirjoita juna tai asema" />
+        <InfoTextWithBorder size={1}>
+          Valitse yleisimmistä 
+        </InfoTextWithBorder>
+        <Suggestions searchStr="juuh" searchItems={
+            [{searchStr: "juu", action: () => console.log("juuh")}]
+          } />
+        <InfoText size={1}>
+          tai 
+        </InfoText>
+        <SearchField type="text" placeholder="kirjoita juna tai asema"/>
       </InputContainer>
-    <div/>
   </FrontPageWrapper>
 );

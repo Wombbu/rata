@@ -33,7 +33,6 @@ class App extends React.Component<{}, {flipped: boolean}> {
     return (
       <Provider store={store}>
         <AppWrapper 
-          onClick={() => this.setState({flipped: !this.state.flipped})}
           color1="#404ec1" 
           color2="#14f3eb"
           >
