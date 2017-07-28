@@ -1,25 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { GradientPage } from '../../components/pages';
-import { InputWrapper, SearchButton, SearchInput } from '../../components/inputs';
-// import FadeImage from '../../components/fade-image';
+import { InputWrapper, SearchField } from '../../components/inputs';
 import InteractiveLogo from '../../page-components/interactive-logo';
+import { Page } from '../../components/pages';
+import { Title, CustomSizeText, TempList } from '../../components/text';
 
 interface FrontPageProps {
   flipped: boolean;
 }
 
-const Title = styled.h1`
-  align-self: center;
-  color: white;
-  text-align: center;
-  font-weight: 100;
-  font-size: 6em;
-  opacity: 0.6;
-  margin: 0px;
-`;
-
-const FrontPageWrapper = GradientPage.extend`
+const FrontPageWrapper = Page.extend`
   justify-content: space-around;
   height: 100vh;
   width: 100vw;
@@ -30,28 +20,37 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: stretch;
+  width: 80%;
+  max-width: 300px;
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const InputArea = (props: {placeholder: string}) => (
   <InputWrapper>
-    <SearchInput type="text" placeholder={props.placeholder}/>
-    <SearchButton> Find! </SearchButton>
+    <SearchField type="text" placeholder={props.placeholder}/>
   </InputWrapper>
 );
-// color1="#404ec1" 
-// color2="#14f3eb"
 
-export const FrontPage = (props: FrontPageProps) => (
-  <FrontPageWrapper
-    color1="#404ec1" 
-    color2="#14f3eb"
-  >
-    <Title> RAIDE </Title>
-    <InteractiveLogo loading={props.flipped}/>
-    <InputContainer>
-      <InputArea placeholder="Station" />
-      <InputArea placeholder="Train number" />
-    </InputContainer>
+export default (props: FrontPageProps) => (
+  <FrontPageWrapper>
+    <LogoWrapper>
+      <Title> RAIDE </Title>
+      <InteractiveLogo loading={props.flipped}/>
+    </LogoWrapper>
+    <div />
+      <InputContainer>
+        <CustomSizeText style={{ borderBottom: "1px solid rgba(255,255,255,0.5)",padding: "10px", alignSelf: "flex-start"}} size={1}> valitse yleisimmistä </CustomSizeText>
+        <TempList size={1.5}>Helsingin asema</TempList>
+        <TempList size={1.5}>IC 49</TempList>
+        <TempList size={1.5}>Tampere</TempList>
+        <CustomSizeText style={{padding: "10px", alignSelf: "flex-start"}} size={1}> tai </CustomSizeText>
+        <InputArea placeholder="Kirjoita juna tai asema" />
+      </InputContainer>
+    <div/>
   </FrontPageWrapper>
 );

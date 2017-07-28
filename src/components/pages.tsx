@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-const Page = styled.div`
+export const Page = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -13,13 +13,13 @@ interface GradientProps {
 
 export const GradientPage = Page.extend`
     background: linear-gradient(36deg, ${(props: GradientProps) => props.color1}, ${props => props.color2});
-    background-size: 400% 400%;
+    background-size: 200% 200%;
 
-    -webkit-animation: dynamic-gradient 30s ease infinite;
+    /*-webkit-animation: dynamic-gradient 30s ease infinite;
     -moz-animation: dynamic-gradient 30s ease infinite;
     -o-animation: dynamic-gradient 30s ease infinite;
     animation: dynamic-gradient 30s ease infinite;
-
+    */
     @-webkit-keyframes dynamic-gradient {
         0%{background-position:86% 0%}
         50%{background-position:15% 100%}

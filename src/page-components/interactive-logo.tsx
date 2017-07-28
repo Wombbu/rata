@@ -40,8 +40,8 @@ export default class InteractiveLogo extends React.Component<InteractiveLogoProp
 
   render() {
     return (
-      <div 
-        ref={img => VanillaTilt.init(img, {speed: 8000, max: 23, reverse: true})}
+      <div
+        ref={img => VanillaTilt.init(img, {speed: 4000, max: 30, reverse: true})}
       >
         <OneSidedCoin size={260} flipped={this.state.flipped}>
           <FadeImage/>
