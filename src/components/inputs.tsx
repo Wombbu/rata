@@ -14,7 +14,7 @@ export const SearchField = styled.input`
   border-style: solid;
   border-color: rgba(255, 255, 255, 0.3);
   border-width: 1px; 
-  font-size: 1.2em;
+  font-size: 1.1em;
   height: 2em;
   padding-left: 1em;
   font-weight: 100;

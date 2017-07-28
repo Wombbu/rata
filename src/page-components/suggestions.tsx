@@ -3,12 +3,10 @@ import styled from 'styled-components';
 import * as FlipMove from 'react-flip-move';
 import { CustomSizeText } from '../components/text';
 
-const StyledList = CustomSizeText.extend`
+const StyledListItem = CustomSizeText.extend`
   border-bottom: 1px solid rgba(255,255,255,0.5);
-  width: 100%;
-  max-width: 300px;
   text-align: center;
-  padding: 10px;
+  padding: 0.6em;
   box-sizing: border-box;
   cursor: pointer;
 
@@ -22,7 +20,7 @@ class SuggestionItem extends React.Component<{children?: any, onClick: () => voi
     super();
   }
   render() {
-    return <StyledList onClick={() => this.props.onClick()} size={1.5} > {this.props.children} </StyledList>
+    return <StyledListItem onClick={() => this.props.onClick()} size={1} > {this.props.children} </StyledListItem>
   }
 }
 
