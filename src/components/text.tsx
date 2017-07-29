@@ -19,7 +19,7 @@ export const Text = BaseText.extend`
 
 export const Title = BaseText.extend`
   font-size: 4em;
-  opacity: 0.3;
+  line-height: 80%;
 `;
 
 export const SubTitle = BaseText.extend`

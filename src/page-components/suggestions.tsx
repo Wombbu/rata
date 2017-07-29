@@ -52,7 +52,6 @@ export class Suggestions extends React.Component<SuggestionsProps, SuggestionsSt
       ({searchStr: 'Helsingin asema', action: () => this.shuffle()} as SuggestionData),
       ({searchStr: 'IC 50', action: () => this.shuffle()} as SuggestionData),
       ({searchStr: 'Tampereen asema', action: () => this.shuffle()} as SuggestionData),
-      ({searchStr: 'IC 42', action: () => this.shuffle()} as SuggestionData),
     ]};
   }
 

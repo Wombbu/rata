@@ -6,6 +6,7 @@ import { SearchField } from '../components/inputs';
 
 const InfoText = Text.extend`
   padding: 10px 0px 6.18px 0px;
+  font-size: 0.8em;
 `;
 
 const InfoTextWithBorder = InfoText.extend`
@@ -26,17 +27,16 @@ export class SuggestionInput extends React.Component<{}, {}> {
   }
 
   render() {
-
     return (
       <InputContainer>
-        <InfoTextWithBorder size={1}>
+        <InfoTextWithBorder>
             Valitse yleisimmistä 
         </InfoTextWithBorder>
         <Suggestions 
           searchStr="juuh" 
           searchItems={[{searchStr: "juu", action: () => console.log("juuh")}]} 
         />
-        <InfoText size={1}>
+        <InfoText>
           tai 
         </InfoText>
         <SearchField 
