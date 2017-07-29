@@ -1,86 +1,47 @@
 import * as React from 'react';
 import styled, { css } from 'styled-components';
 
-interface SizeProps {
-  size: number;
-}
-
 interface FlipperProps {
   flipped: boolean;
   flipDegrees: number;
 }
 
-const DynamicSize = styled.div`
-  ${(props: SizeProps) => css`
-    width: ${props.size}px;
-    height: ${props.size}px;
-  `}
+const CenterItems = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
 `;
 
-const CoinContainer = DynamicSize.extend`
+const CoinContainer = CenterItems.extend`
   perspective: 1000px;
 `;
 
-const CoinFlipper = styled.div`
+const CoinFlipper = CenterItems.extend`
   ${(props: FlipperProps) => props.flipped ? css`
       transform: rotateY(${props.flipDegrees}deg);
     ` : ''}
   transition: 1.6s;
 	transform-style: preserve-3d;
   transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-	position: relative;
 `;
 
-const CoinFace = DynamicSize.extend`
-  ${(props: SizeProps) => css`
-    border-radius: ${props.size / 2}px;
-  `}
-
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-
-  backface-visibility: hidden;
-	position: absolute;
+const CoinFace = CenterItems.extend`
+  border-radius: 50%;
+  backface-visibility: visible;
 	top: 0;
 	left: 0;
 `;
 
-const OneSidedCoinFace = CoinFace.extend`
-  backface-visibility: visible;
-`
-
-const Heads = CoinFace.extend`
-  z-index: 2;
-	transform: rotateY(0deg);
-`;
-
-const Tails = CoinFace.extend`
-  transform: rotateY(180deg);
-`;
-
-interface CoinProps extends SizeProps {
+interface CoinProps {
   flipped: boolean;
   children?: any;
 }
 
-export const TwoSidedCoin = (props: CoinProps) =>
-  <CoinContainer size={props.size}>
-    <CoinFlipper flipped={props.flipped} flipDegrees={180}>
-      <Heads size={props.size}>
-        { props.children }
-      </Heads>
-      <Tails size={props.size}>
-        { props.children }
-      </Tails>
-    </CoinFlipper>
-  </CoinContainer>;
-
 export const OneSidedCoin = (props: CoinProps) =>
-  <CoinContainer size={props.size}>
+  <CoinContainer>
     <CoinFlipper flipped={props.flipped} flipDegrees={360}>
-      <OneSidedCoinFace size={props.size}>
+      <CoinFace>
         { props.children }
-      </OneSidedCoinFace>
+      </CoinFace>
     </CoinFlipper>
   </CoinContainer>;

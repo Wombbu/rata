@@ -49,7 +49,7 @@ class FrontPage extends React.Component<FrontPageProps, {height: number}> {
             <Title> RAIDE </Title>
             <CustomSizeText size={0.8}> Junatiedot nätisti. </CustomSizeText>
           </LogoTextWrapper>
-          <InteractiveLogo loading={this.props.flipped} size={this.state.height * 0.25}/>
+          <InteractiveLogo loading={this.props.flipped}/>
         </LogoWrapper>
         <SuggestionInput />
       </FrontPageWrapper>

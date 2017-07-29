@@ -20,21 +20,15 @@ class App extends React.Component<{}, {flipped: boolean}> {
   constructor() {
     super();
     this.state = { flipped: false };
-    // this.setState({flipped: !this.state.flipped})
-    const flip = () => {
-      this.setState({flipped: !this.state.flipped})
-      setTimeout(() => {
-        flip();
-      }, 5000);
-    }
-    // flip();
   }
+  
   render() {
     return (
       <Provider store={store}>
-        <AppWrapper 
+        <AppWrapper
           color1="#404ec1" 
           color2="#14f3eb"
+          onClick={() => this.setState({flipped: !this.state.flipped})}
           >
           <FrontPage flipped={this.state.flipped} />
           <ResultPage />

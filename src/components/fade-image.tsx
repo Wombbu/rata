@@ -5,6 +5,8 @@ const ImageWithFade = styled.img`
   transition: opacity 0.8s;
   opacity: ${(props: {loaded: boolean}) => props.loaded ? '1' : '0'};
   height: 100%;
+  width: auto;
+
   z-index: 100;
 `;
 
@@ -12,9 +14,8 @@ const ImageWithFade = styled.img`
  * Wraps the image to keep the aspect ratio when put inside a container with display: flex
  */
 const ImageWrapper = styled.div`
-  width: 100%;
-  display: flex;
   justify-content: center;
+  display: flex;
 `;
 
 export class FadeImage extends React.Component<{onLoad?: () => void, imgRef?: (i: HTMLElement) => void}, {loaded: boolean}> {

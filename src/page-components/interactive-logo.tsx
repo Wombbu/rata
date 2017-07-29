@@ -6,7 +6,6 @@ const VanillaTilt = require('vanilla-tilt');
 
 interface InteractiveLogoProps {
   loading: boolean;
-  size: number;
 }
 
 interface InteractiveLogoState {
@@ -23,7 +22,7 @@ export default class InteractiveLogo extends React.Component<InteractiveLogoProp
   flipIfNeeded() {
     const flipped = this.state.flipped;
     const loading = this.props.loading;
-
+    console.log(this.props.loading);
     if (loading && !this.rotating) {
       this.rotating = true;
       this.setState({flipped: !flipped});
@@ -43,8 +42,9 @@ export default class InteractiveLogo extends React.Component<InteractiveLogoProp
     return (
       <div
         ref={img => VanillaTilt.init(img, {speed: 4000, max: 30, reverse: true})}
+        style={{display: 'flex', justifyContent: 'center'}}
       >
-        <OneSidedCoin size={this.props.size} flipped={this.state.flipped}>
+        <OneSidedCoin flipped={this.state.flipped}>
           <FadeImage/>
         </OneSidedCoin>
       </div>
