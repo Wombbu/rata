@@ -12,6 +12,7 @@ const AppWrapper = GradientPage.extend`
   }
   background-repeat: no-repeat;
   background-attachment: fixed;
+  
   align-items: stretch;
 `;
 
