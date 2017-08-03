@@ -34,8 +34,9 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 80%;
+  width: 68%;
   max-width: 300px;
+  min-height: 150px;
 `;
 
 export class SuggestionInput extends React.Component<{}, {inputStr: string}> {

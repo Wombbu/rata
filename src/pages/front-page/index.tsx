@@ -10,7 +10,7 @@ interface FrontPageProps {
 }
 
 const FrontPageWrapper = Page.extend`
-  justify-content: center;
+  justify-content: space-around;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -22,13 +22,12 @@ const LogoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 6vh;
+  min-height: 5em;
 `;
 
 const LogoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 6vh;
 `
 
 class FrontPage extends React.Component<FrontPageProps, {height: number}> {
@@ -49,8 +48,9 @@ class FrontPage extends React.Component<FrontPageProps, {height: number}> {
             <Title> RAIDE </Title>
             <CustomSizeText size={0.8}> Junatiedot nätisti. </CustomSizeText>
           </LogoTextWrapper>
-          <InteractiveLogo loading={this.props.flipped}/>
         </LogoWrapper>
+        <InteractiveLogo loading={this.props.flipped}/>
+
         <SuggestionInput />
       </FrontPageWrapper>
     )

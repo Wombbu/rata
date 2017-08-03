@@ -9,5 +9,5 @@ export const InfoBox = styled.div`
   max-width: 500px;
   width: 80%;
   flex-direction: column;
-  min-height: 100px;
+  min-height: 80px;
 `;
