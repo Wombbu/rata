@@ -12,16 +12,10 @@ interface TrainTimeTable {
   name: string;
 }
 
-interface TrainDetails {
-  name: string;
-}
-
-interface RootState {
+export interface RootState {
   loading: boolean,
-  stationInfo?: StationInfo,
-  trainTimeTable?: TrainTimeTable,
-  trainDetails?: TrainDetails,
-
+  stationInfo: StationInfo,
+  trainInfo: TrainTimeTable,
 }
 
 const initialState = {loading: false} as RootState;
