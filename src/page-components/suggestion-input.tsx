@@ -1,25 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Text } from '../components/text';
-import { Suggestions, SuggestionData } from './suggestions';
+import Suggestions from './suggestions';
 import { SearchField } from '../components/inputs';
-
-const tempSearchItems: SuggestionData[] = [
-  ({searchStr: 'Helsingin asema', action: () => console.log("juuh")} as SuggestionData),
-  ({searchStr: 'IC 50', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Tampereen asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Seinäjoen asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Lapuan asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Rovaniemen asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Pietarsaaren asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Kokkolan asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Jyväskylän asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Turun asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'IC 41', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'IC 60', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Härmän asema', action: () =>  console.log("juuh")} as SuggestionData),
-  ({searchStr: 'Sipoon asema', action: () =>  console.log("juuh")} as SuggestionData),
-]
 
 const InfoText = Text.extend`
   padding: 10px 0px 6.18px 0px;
@@ -51,10 +34,7 @@ export class SuggestionInput extends React.Component<{}, {inputStr: string}> {
         <InfoTextWithBorder>
             {this.state.inputStr ? "Valitse ehdotuksista" :  "Valitse yleisimmistä" }
         </InfoTextWithBorder>
-        <Suggestions 
-          searchStr={this.state.inputStr}
-          searchItems={tempSearchItems} 
-        />
+        <Suggestions searchStr={this.state.inputStr}/>
         <InfoText>
           {this.state.inputStr ? "hakusanalle" : "tai"} 
         </InfoText>
