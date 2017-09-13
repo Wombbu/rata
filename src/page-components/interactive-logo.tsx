@@ -1,8 +1,12 @@
 import * as React from 'react';
+import * as ReactRedux from 'react-redux';
 import styled from 'styled-components';
 import FadeImage from '../components/fade-image';
 import { OneSidedCoin } from '../components/coin-flip';
+import { RootState } from '../state';
+import { loadingSelector } from '../state/selectors';
 // When imported, is undefined on runtime. That's why require
+// TODO remove this shit
 const VanillaTilt = require('vanilla-tilt');
 
 const LogoContainer = styled.div`
@@ -20,7 +24,7 @@ interface InteractiveLogoState {
   vanillaTiltActive: boolean;
 }
 
-export default class InteractiveLogo extends React.Component<InteractiveLogoProps, InteractiveLogoState> {
+class InteractiveLogo extends React.Component<InteractiveLogoProps, InteractiveLogoState> {
   rotating: boolean = false;
   constructor() {
     super();
@@ -64,3 +68,7 @@ export default class InteractiveLogo extends React.Component<InteractiveLogoProp
     )
   }
 }
+
+const mapStateToProps = (state: RootState) => ({ loading: loadingSelector(state)})
+
+export default ReactRedux.connect(mapStateToProps, () => ({}))(InteractiveLogo);

@@ -1,12 +1,7 @@
-// $scope.arrivals =
-//       model
-//       .filter(row => row.arrives)
-//       .sort((a, b) => p.earliestFirst(a.arrives, b.arrives))
+import { SuggestionData } from './types';
+import { RootState } from '../';
 
-// $scope.departures =
-//      model
-//      .filter(row => row.departures)
-//      .sort((a, b) => p.earliestFirst(a.departures, b.departures))
-//      console.log("Afterparse: arrivals: ", $scope.arrivals)
-//      console.log("Afterparse: departures: ", $scope.departures)
-//   }
+export const getSuggestionData = (state: RootState): SuggestionData[] => 
+  state.suggestions.stationMetadata
+    .filter(data => data.passengerTraffic)
+    .map(data => ({ stationName: data.stationName, stationShortCode: data.stationShortCode } as SuggestionData));

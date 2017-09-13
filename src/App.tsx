@@ -20,7 +20,6 @@ class App extends React.Component<{}, {flipped: boolean}> {
 
   constructor() {
     super();
-    this.state = { flipped: false };
   }
   
   render() {
@@ -29,9 +28,8 @@ class App extends React.Component<{}, {flipped: boolean}> {
         <AppWrapper
           color1="#404ec1" 
           color2="#14f3eb"
-          onClick={() => this.setState({flipped: !this.state.flipped})}
-          >
-          <FrontPage flipped={this.state.flipped} />
+        >
+          <FrontPage />
           <ResultPage />
         </AppWrapper>
       </Provider>

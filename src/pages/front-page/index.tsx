@@ -6,7 +6,7 @@ import { Title, CustomSizeText } from '../../components/text';
 import { SuggestionInput } from '../../page-components/suggestion-input';
 
 interface FrontPageProps {
-  flipped: boolean;
+
 }
 
 const FrontPageWrapper = Page.extend`
@@ -49,7 +49,7 @@ class FrontPage extends React.Component<FrontPageProps, {height: number}> {
             <CustomSizeText size={0.8}> Junatiedot nätisti. </CustomSizeText>
           </LogoTextWrapper>
         </LogoWrapper>
-        <InteractiveLogo loading={this.props.flipped}/>
+        <InteractiveLogo/>
 
         <SuggestionInput />
       </FrontPageWrapper>

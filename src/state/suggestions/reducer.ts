@@ -1,24 +1,23 @@
 import * as Redux from 'redux';
-import { Station } from './types';
-import { fetchStationActions } from './actions';
+import { Suggestions } from './types';
+import { fetchStationMetadataActions } from './actions';
 
-export const defaultState: Station = {
-  name: "",
-  trains: [],
+export const defaultState: Suggestions = {
+  stationMetadata: [],
   loading: false,
 }
 
-const stationInfoReducer = 
-  (state: Station = defaultState, action: Redux.AnyAction) => {
+const suggestionsReducer = 
+  (state: Suggestions = defaultState, action: Redux.AnyAction) => {
     switch(action.type) {
-      case fetchStationActions.start:
-        return { ...state, loading: true};
-      case fetchStationActions.success:
-        return { ...state, trains: action.payload, loading: false }
-      case fetchStationActions.failure:
-        return { ...state, loading: false };
+      case fetchStationMetadataActions.start:
+        return { ...state, loading: true } as Suggestions;
+      case fetchStationMetadataActions.success:
+        return { ...state, stationMetadata: action.payload, loading: false } as Suggestions;
+      case fetchStationMetadataActions.failure:
+        return { ...state, loading: false } as Suggestions;
       default: return state;
     }
 };
 
-export default stationInfoReducer;
+export default suggestionsReducer;

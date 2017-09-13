@@ -1,11 +1,10 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
-import { Station } from './station/types';
-import stationReducer from './station/reducer';
 import thunk from 'redux-thunk';
-
-const rootReducer = combineReducers<RootState>({
-  station: stationReducer,
-});
+import { Station } from './station/types';
+import { Suggestions } from './suggestions/types';
+import suggestionsReducer, { defaultState as suggestionsDefaultState } from './suggestions/reducer';
+import { dispatchInitActions } from './suggestions/actions';
+import stationReducer, { defaultState as stationDefaultState } from './station/reducer';
 
 interface TrainTimeTable {
   name: string;
@@ -13,11 +12,20 @@ interface TrainTimeTable {
 
 export interface RootState {
   loading: boolean,
-  station?: Station,
+  suggestions: Suggestions,
+  station: Station,
   trainInfo?: TrainTimeTable,
 }
 
-const initialState = {} as RootState;
+const rootReducer = combineReducers<RootState>({
+  station: stationReducer,
+  suggestions: suggestionsReducer,
+});
+
+const initialState = {
+  suggestions: suggestionsDefaultState, 
+  station: stationDefaultState
+} as RootState;
 
 const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] || compose;
 
@@ -28,5 +36,7 @@ const store = createStore(
       applyMiddleware(thunk)
     )
   )
+
+dispatchInitActions(store);
 
 export default store;

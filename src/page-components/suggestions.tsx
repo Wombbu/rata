@@ -4,23 +4,8 @@ import { connect } from 'react-redux';
 import { CustomSizeText } from '../components/text';
 import { RootState } from '../state';
 import { fetchStationData } from '../state/station/actions';
-
-const tempSearchItems: SuggestionData[] = [
-  ({searchStr: 'Helsingin asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'IC 50', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Tampereen asema', stationShortCode: "TPE"} as SuggestionData),
-  ({searchStr: 'Seinäjoen asema', stationShortCode: "SEI"} as SuggestionData),
-  ({searchStr: 'Lapuan asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Rovaniemen asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Pietarsaaren asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Kokkolan asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Jyväskylän asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Turun asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'IC 41', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'IC 60', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Härmän asema', stationShortCode: "HKI"} as SuggestionData),
-  ({searchStr: 'Sipoon asema', stationShortCode: "HKI"} as SuggestionData),
-]
+import { SuggestionData } from '../state/suggestions/types';
+import { getSuggestionData } from '../state/suggestions/selectors';
 
 const StyledListItem = CustomSizeText.extend`
   border-bottom: 1px solid rgba(255,255,255,0.5);
@@ -41,6 +26,8 @@ const StyledListItem = CustomSizeText.extend`
  * A suggestion list item
  * 
  * Is a class because react-flex-move requires the animated components to be stateful components with ref
+ * 
+ * TODO CONVERT TO A FUNCTION
  */
 class SuggestionItem extends React.Component<{children?: any, onClick: () => void}, {}> {
   constructor() {
@@ -49,12 +36,6 @@ class SuggestionItem extends React.Component<{children?: any, onClick: () => voi
   render() {
     return <StyledListItem onClick={() => this.props.onClick()} size={1} > {this.props.children} </StyledListItem>
   }
-}
-
-// TODO provide this from contructor (find a way to map actions to dispatch function)
-export interface SuggestionData {
-  searchStr: string;
-  stationShortCode: string;
 }
 
 interface SuggestionsProps {
@@ -73,18 +54,18 @@ const SuggestionsContainer = styled.div`
 const Suggestions = (props: SuggestionsProps) => 
   <SuggestionsContainer>
     {props.searchItems
-    .filter(item => item.searchStr.toLowerCase().includes(props.searchStr.toLowerCase()))
+    .filter(item => item.stationName.toLowerCase().includes(props.searchStr.toLowerCase()))
     .slice(0,3)
     .map(item =>
-      <SuggestionItem onClick={() => props.findStation(item.stationShortCode)} key={item.searchStr}> 
-        {item.searchStr} 
+      <SuggestionItem onClick={() => props.findStation(item.stationShortCode)} key={item.stationName}> 
+        {item.stationName} 
       </SuggestionItem>)
     }
   </SuggestionsContainer>;
 
 const mapStateToProps = (state: RootState): SuggestionsProps => {
   return {
-    searchItems: tempSearchItems,
+    searchItems: getSuggestionData(state),
   } as SuggestionsProps;
 };
 
