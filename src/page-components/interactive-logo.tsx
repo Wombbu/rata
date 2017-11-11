@@ -1,18 +1,14 @@
 import * as React from 'react';
 import * as ReactRedux from 'react-redux';
 import styled from 'styled-components';
-import FadeImage from '../components/fade-image';
+import LogoImg from '../components/fade-image';
 import { OneSidedCoin } from '../components/coin-flip';
 import { RootState } from '../state';
 import { loadingSelector } from '../state/selectors';
-// When imported, is undefined on runtime. That's why require
-// TODO remove this shit
-const VanillaTilt = require('vanilla-tilt');
 
 const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
-  max-height: 26vh;
 `
 
 interface InteractiveLogoProps {
@@ -53,16 +49,10 @@ class InteractiveLogo extends React.Component<InteractiveLogoProps, InteractiveL
   render() {
     return (
       <LogoContainer
-        innerRef={div => {
-          if (!this.state.vanillaTiltActive) {
-            this.setState({vanillaTiltActive: true});
-            VanillaTilt.init(div, {speed: 4000, max: 30, reverse: true});
-          }
-        }}
         style={{display: 'flex', justifyContent: 'center'}}
       >
         <OneSidedCoin flipped={this.state.flipped}>
-          <FadeImage/>
+          <LogoImg/>
         </OneSidedCoin>
       </LogoContainer>
     )

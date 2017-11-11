@@ -7,10 +7,10 @@ const onlyThisStation = (stationCode: string) => (row: ApiTimeTableRow) =>
     row.stationShortCode.toUpperCase() === stationCode.toUpperCase();
 const onlyPassengerStops = (row: ApiTimeTableRow) => row.trainStopping && row.commercialStop && row.commercialTrack;
 const createMostAccurateMomentFromTimeTableRow = (row: ApiTimeTableRow) => moment(row.actualTime || row.liveEstimateTime || row.scheduledTime);
-const hasPassed = (currentMoment: moment.Moment) => (row: ApiTimeTableRow) => 
-  createMostAccurateMomentFromTimeTableRow(row).isBefore(currentMoment);
-const onlyArrivals = (row: ApiTimeTableRow) => row.type === 'ARRIVAL'
-const onlyDeparture = (row: ApiTimeTableRow) => row.type === 'DEPARTURE'
+//const notPassed = (currentMoment: moment.Moment) => (row: ApiTimeTableRow) => 
+//  createMostAccurateMomentFromTimeTableRow(row).isAfter(currentMoment);
+// const onlyArrivals = (row: ApiTimeTableRow) => row.type === 'ARRIVAL'
+// const onlyDeparture = (row: ApiTimeTableRow) => row.type === 'DEPARTURE'
 
 // TODO create a interface for station
 const stationShortCodeToStationName = (stations: {stationName: string, stationShortCode: string}[]) => (shortCode: string) => {
@@ -19,7 +19,6 @@ const stationShortCodeToStationName = (stations: {stationName: string, stationSh
   }
 
 export const parseTimetable = (forStationCode: string, trainsStoppingInStation: ApiTrain[], stationNames: ApiStationJson[]): Train[] => {
-  console.log(trainsStoppingInStation, forStationCode, stationNames);
   return trainsStoppingInStation
       .filter((train: ApiTrain) => isPassengerTrain(train.trainType))
       .map((train: ApiTrain) => {
@@ -31,30 +30,38 @@ export const parseTimetable = (forStationCode: string, trainsStoppingInStation: 
         const ttRowsWithStation: ApiTimeTableRow[] =
           train.timeTableRows
           .filter(onlyThisStation(forStationCode))
-          .filter(onlyPassengerStops)
-          .filter(hasPassed(moment()));
+          .filter(onlyPassengerStops);
+          //.filter(notPassed(moment()));
 
         // At this point we have only the departure / arrival / both timetable rows
-
-        const arrivalTimes =
+        console.log(ttRowsWithStation);
+        console.log(trainsStoppingInStation);
+        const arrival =
           ttRowsWithStation
-          .filter(onlyArrivals);
+            .find((row: ApiTimeTableRow) => {
+              console.log("is arrival: " , row.type === 'ARRIVAL');
+              return row.type === 'ARRIVAL';
+            });
         
-        const departureTimes =
+        const departure =
           ttRowsWithStation
-          .filter(onlyDeparture);
+            .find((row: ApiTimeTableRow) => {
+              console.log("is departure: ", row.type === 'DEPARTURE');
+              return row.type === 'DEPARTURE';
+            });
 
-        const estimatedArrivalMoment: moment.Moment = createMostAccurateMomentFromTimeTableRow(arrivalTimes[0]);
-        const estimatedDepartureMoment: moment.Moment = createMostAccurateMomentFromTimeTableRow(departureTimes[0]);
+        console.log(arrival);
 
-        const scheduledArrivalMoment: moment.Moment = arrivalTimes[0] ? moment(arrivalTimes[0].scheduledTime) : moment.invalid();
-        const scheduledDepartureMoment: moment.Moment = departureTimes[0] ? moment(departureTimes[0].scheduledTime) : moment.invalid();
+        const estimatedArrivalMoment: moment.Moment = arrival ? createMostAccurateMomentFromTimeTableRow(arrival) : moment.invalid(); 
+        const estimatedDepartureMoment: moment.Moment = departure ? createMostAccurateMomentFromTimeTableRow(departure) : moment.invalid();
+
+        const scheduledArrivalMoment: moment.Moment = arrival ? moment(arrival.scheduledTime) : moment.invalid();
+        const scheduledDepartureMoment: moment.Moment = departure ? moment(departure.scheduledTime) : moment.invalid();
 
         const arrivalTimeDiff = (estimatedArrivalMoment.isValid() && scheduledArrivalMoment.isValid())
           ? scheduledArrivalMoment.diff(estimatedArrivalMoment) : 0;
         const departureTimeDiff = (estimatedDepartureMoment.isValid() && scheduledDepartureMoment.isValid()) 
           ? scheduledDepartureMoment.diff(estimatedDepartureMoment) : 0;
-
         return {
           name: `${train.trainType}-${train.trainNumber}`,
           firstStation: firstStation,
@@ -63,12 +70,12 @@ export const parseTimetable = (forStationCode: string, trainsStoppingInStation: 
           arrivalTimeDiff,
           scheduledArrival: scheduledArrivalMoment.format('HH:mm'),
           estimatedArrival: estimatedArrivalMoment.format('HH:mm'),
-          arrivalTrack: _.get(arrivalTimes[0], 'commercialTrack'),
+          arrivalTrack: _.get(arrival, 'commercialTrack', -1),
 
           departureTimeDiff,
           scheduledDeparture: scheduledDepartureMoment.format('HH:mm'),
           estimatedDeparture: estimatedDepartureMoment.format('HH:mm'),
-          departureTrack: _.get(departureTimes[0], 'commercialTrack'),
+          departureTrack: _.get(departure, 'commercialTrack', -1),
         } as Train
       })
 }

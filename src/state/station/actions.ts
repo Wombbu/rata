@@ -9,24 +9,23 @@ export const fetchStationActions = {
   failure: 'station/FETCH_STATION_FAILURE',
 };
 
-export const fetchStationData = (stationShortCode: string) => (dispatch: (action: Redux.AnyAction) => Promise<void>, getState: () => RootState) => {
-  dispatch({ type: fetchStationActions.start });
-  const headers: Headers = new Headers();
-  headers.append("Accept-Encoding", "gzip");
-  console.log(stationShortCode);
-  fetch(`https://rata.digitraffic.fi/api/v1/live-trains/station/${stationShortCode}?minutes_before_departure=15&minutes_after_departure=15&minutes_before_arrival=15&minutes_after_arrival=15`
-    , {headers}
-  )
-    .then(trainsStoppingInStation => {
-      console.log(trainsStoppingInStation.url);
-      return trainsStoppingInStation.json();
-    })
-    .then((trainsStoppingInStation: ApiTrain[]) => {
-      console.log(trainsStoppingInStation);  
-      return Util.parseTimetable(stationShortCode, trainsStoppingInStation, [] )}
-    )
-    .then(parsed => dispatch({ type: fetchStationActions.success, payload: parsed }))
-    .catch(err => dispatch({ type: fetchStationActions.failure }))
-}
+export const fetchStationData = (stationShortCode: string, stationName: string) =>
+  (dispatch: (action: Redux.AnyAction) => Promise<void>, getState: () => RootState) => {
+    dispatch({ type: fetchStationActions.start });
+    const headers: Headers = new Headers();
+    headers.append("Accept-Encoding", "gzip");
+    fetch(`https://rata.digitraffic.fi/api/v1/live-trains/station/${stationShortCode}?minutes_before_departure=15&minutes_after_departure=15&minutes_before_arrival=15&minutes_after_arrival=15`
+      , {headers})
+      .then(trainsStoppingInStation => {
+        return trainsStoppingInStation.json();
+      })
+      // Since the response can be over 10 000 rows of JSON, we parse it here to lighten the load on selectors
+      .then((trainsStoppingInStation: ApiTrain[]) => Util.parseTimetable(stationShortCode, trainsStoppingInStation, [] ))
+      .then(trains => dispatch({ type: fetchStationActions.success, payload: {trains, stationName} }))
+      .catch(err => {
+        console.error(err);
+        dispatch({ type: fetchStationActions.failure })
+      })
+    }
 
   // TODO subscribe to websocket action

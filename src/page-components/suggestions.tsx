@@ -41,7 +41,7 @@ class SuggestionItem extends React.Component<{children?: any, onClick: () => voi
 interface SuggestionsProps {
   searchStr: string;
   searchItems: SuggestionData[];
-  findStation: (stationShortCode: string) => void;
+  findStation: (stationShortCode: string, stationName: string) => void;
 }
 
 const SuggestionsContainer = styled.div`
@@ -57,7 +57,7 @@ const Suggestions = (props: SuggestionsProps) =>
     .filter(item => item.stationName.toLowerCase().includes(props.searchStr.toLowerCase()))
     .slice(0,3)
     .map(item =>
-      <SuggestionItem onClick={() => props.findStation(item.stationShortCode)} key={item.stationName}> 
+      <SuggestionItem onClick={() => props.findStation(item.stationShortCode, item.stationName)} key={item.stationName}> 
         {item.stationName} 
       </SuggestionItem>)
     }
@@ -71,8 +71,8 @@ const mapStateToProps = (state: RootState): SuggestionsProps => {
 
 const mapDispatchToProps = (dispatch: any): SuggestionsProps => {
   return {
-    findStation: (stationShortCode: string) => {
-      dispatch(fetchStationData(stationShortCode)) 
+    findStation: (stationShortCode: string, stationName: string) => {
+      dispatch(fetchStationData(stationShortCode, stationName)) 
     }
   } as SuggestionsProps;
 };

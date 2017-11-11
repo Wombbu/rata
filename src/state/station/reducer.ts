@@ -14,7 +14,11 @@ const stationInfoReducer =
       case fetchStationActions.start:
         return { ...state, loading: true};
       case fetchStationActions.success:
-        return { ...state, trains: action.payload, loading: false }
+        return { ...state, 
+          trains: action.payload.trains, 
+          name: action.payload.stationName,
+          loading: false 
+        }
       case fetchStationActions.failure:
         return { ...state, loading: false };
       default: return state;

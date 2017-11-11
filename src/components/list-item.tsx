@@ -6,8 +6,6 @@ export const InfoBox = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
-  max-width: 500px;
-  width: 80%;
   flex-direction: column;
   min-height: 80px;
 `;

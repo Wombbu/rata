@@ -16,7 +16,7 @@ const AppWrapper = GradientPage.extend`
   align-items: stretch;
 `;
 
-class App extends React.Component<{}, {flipped: boolean}> {
+class App extends React.Component<{}, {}> {
 
   constructor() {
     super();
