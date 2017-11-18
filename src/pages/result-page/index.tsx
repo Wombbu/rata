@@ -7,7 +7,7 @@ import { Text, SubTitle, CustomSizeText } from '../../components/text';
 import { Page } from '../../components/pages';
 import { Tabs, Tab, TabDivider } from '../../page-components/tabs';
 import { InfoBox } from '../../components/list-item';
-
+    
 interface ResultPageProps {
   name: string;
   trains: Train[];

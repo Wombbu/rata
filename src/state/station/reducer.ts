@@ -1,6 +1,6 @@
 import * as Redux from 'redux';
 import { Station } from './types';
-import { fetchStationActions } from './actions';
+import { actionTypes } from './actions';
 
 export const defaultState: Station = {
   name: "",
@@ -11,15 +11,15 @@ export const defaultState: Station = {
 const stationInfoReducer = 
   (state: Station = defaultState, action: Redux.AnyAction) => {
     switch(action.type) {
-      case fetchStationActions.start:
+      case actionTypes.start:
         return { ...state, loading: true};
-      case fetchStationActions.success:
+      case actionTypes.success:
         return { ...state, 
           trains: action.payload.trains, 
           name: action.payload.stationName,
           loading: false 
         }
-      case fetchStationActions.failure:
+      case actionTypes.failure:
         return { ...state, loading: false };
       default: return state;
     }
