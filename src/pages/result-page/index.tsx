@@ -7,7 +7,6 @@ import { Text, SubTitle, CustomSizeText } from '../../components/text';
 import { Page } from '../../components/pages';
 import { Tabs, Tab, TabDivider } from '../../page-components/tabs';
 import { InfoBox } from '../../components/list-item';
-const scrollToComponent = require("react-scroll-to-component");
 
 interface ResultPageProps {
   name: string;
@@ -88,7 +87,6 @@ class ResultPage extends React.Component<ResultPageProps, {trainInfoListRef?: El
         <TrainListWrapper
           innerRef={(trainInfoListRef: Element) => {
             if (!this.state.trainInfoListRef) {
-              scrollToComponent(trainInfoListRef, {duration: 500})
               this.setState({trainInfoListRef})
             }
           }}

@@ -6,7 +6,7 @@ import { Title, CustomSizeText } from '../../components/text';
 import { SuggestionInput } from '../../page-components/suggestion-input';
 
 interface FrontPageProps {
-
+  
 }
 
 const FrontPageWrapper = Page.extend`
