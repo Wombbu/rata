@@ -6,6 +6,13 @@ export const Page = styled.div`
   display: flex;
 `;
 
+export const ResultPageWrapper = Page.extend`
+  height: 100vh;
+  padding-top: 3vh;
+  box-sizing: border-box;
+  position: relative;
+`;
+
 interface GradientProps {
     color1: string;
     color2: string;

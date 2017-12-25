@@ -31,26 +31,12 @@ export const parseTimetable = (forStationCode: string, trainsStoppingInStation: 
           train.timeTableRows
           .filter(onlyThisStation(forStationCode))
           .filter(onlyPassengerStops);
-          //.filter(notPassed(moment()));
 
-        // At this point we have only the departure / arrival / both timetable rows
-        console.log(ttRowsWithStation);
-        console.log(trainsStoppingInStation);
-        const arrival =
-          ttRowsWithStation
-            .find((row: ApiTimeTableRow) => {
-              console.log("is arrival: " , row.type === 'ARRIVAL');
-              return row.type === 'ARRIVAL';
-            });
+        const arrival = ttRowsWithStation
+            .find((row: ApiTimeTableRow) => row.type === 'ARRIVAL');
         
-        const departure =
-          ttRowsWithStation
-            .find((row: ApiTimeTableRow) => {
-              console.log("is departure: ", row.type === 'DEPARTURE');
-              return row.type === 'DEPARTURE';
-            });
-
-        console.log(arrival);
+        const departure = ttRowsWithStation
+            .find((row: ApiTimeTableRow) => row.type === 'DEPARTURE');
 
         const estimatedArrivalMoment: moment.Moment = arrival ? createMostAccurateMomentFromTimeTableRow(arrival) : moment.invalid(); 
         const estimatedDepartureMoment: moment.Moment = departure ? createMostAccurateMomentFromTimeTableRow(departure) : moment.invalid();
@@ -59,9 +45,12 @@ export const parseTimetable = (forStationCode: string, trainsStoppingInStation: 
         const scheduledDepartureMoment: moment.Moment = departure ? moment(departure.scheduledTime) : moment.invalid();
 
         const arrivalTimeDiff = (estimatedArrivalMoment.isValid() && scheduledArrivalMoment.isValid())
-          ? scheduledArrivalMoment.diff(estimatedArrivalMoment) : 0;
+          ? scheduledArrivalMoment.diff(estimatedArrivalMoment, 'minutes') 
+          : 0;
         const departureTimeDiff = (estimatedDepartureMoment.isValid() && scheduledDepartureMoment.isValid()) 
-          ? scheduledDepartureMoment.diff(estimatedDepartureMoment) : 0;
+          ? scheduledDepartureMoment.diff(estimatedDepartureMoment, 'minutes') 
+          : 0;
+
         return {
           name: `${train.trainType}-${train.trainNumber}`,
           firstStation: firstStation,

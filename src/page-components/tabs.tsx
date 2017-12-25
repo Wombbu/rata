@@ -1,16 +1,22 @@
 import styled from 'styled-components';
 
 export const Tabs = styled.div`
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   display: flex;
   justify-content: space-around;
   align-items: center;
   max-width: 300px;
   width: 60%;
+  border: 1px solid rgba(255,255,255,0.4);
 `
 
+interface TabProps {
+  active: boolean;
+}
+
 export const Tab = styled.span`
+  ${(p: TabProps) => p.active ? 'background-color: rgba(255,255,255,0.3);' : ''}
   color: white;
   text-align: center;
   font-weight: 100;
@@ -21,7 +27,10 @@ export const Tab = styled.span`
   cursor: pointer;
   padding: 5px 10px 5px 10px;
   &:hover {
-    text-shadow: 0px 0px 2px rgba(0,0,0,0.8);
+    background-color: ${(p: TabProps) => p.active ? 'rgba(255,255,255,0.4);' : 'rgba(255,255,255,0.15);'}
+  }
+  &:active {
+    background-color: rgba(255,255,255,0.6);
   }
 `;
 
