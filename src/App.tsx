@@ -3,7 +3,7 @@ import FrontPage from './pages/front-page';
 import { Provider } from 'react-redux';
 import { GradientPage } from './components/pages';
 import store from './state'
-import ResultPage from './pages/result-page';
+import StationResultPage from './pages/station-result-page';
 
 const AppWrapper = GradientPage.extend`
   @import url('https://fonts.googleapis.com/css?family=Roboto');
@@ -31,7 +31,7 @@ class App extends React.Component<{}, {}> {
           color2="#14f3eb"
         >
           <FrontPage />
-          <ResultPage />
+          <StationResultPage />
         </AppWrapper>
       </Provider>
     );

@@ -7,6 +7,7 @@ import { Text, SubTitle, CustomSizeText } from '../../components/text';
 import { ResultPageWrapper } from '../../components/pages';
 import { Tabs, Tab, TabDivider } from '../../page-components/tabs';
 import { InfoBox } from '../../components/list-item';
+import SmartScrollResultList from '../../page-components/smart-scroll-result-list';
     
 interface ResultPageProps {
   name: string;
@@ -24,18 +25,7 @@ const InfoWrapper = styled.div`
   flex-direction: column;
 `;
 
-const TrainListWrapper = styled.div`
-  overflow: scroll;
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  max-width: 500px;
-  margin-bottom: 3vh;
-  border-bottom: 1px solid rgba(255,255,255,0.4);
-`;
-
-class ResultPage extends React.Component<ResultPageProps, {trainInfoListRef?: Element, arrivals: boolean}> {
+class StationResultPage extends React.Component<ResultPageProps, {trainInfoListRef?: Element, arrivals: boolean}> {
 
   constructor() {
     super();
@@ -61,27 +51,11 @@ class ResultPage extends React.Component<ResultPageProps, {trainInfoListRef?: El
             onClick={() => this.setState({arrivals: false})}
           > Saapuvat </Tab>
         </Tabs>
-        <TrainListWrapper
-          innerRef={(trainInfoListRef: Element) => {
-            if (!this.state.trainInfoListRef) {
-              this.setState({trainInfoListRef})
-            }
-          }}
-          onWheel={e => {
-            if (!this.state.trainInfoListRef) {
-              return;
-            }
-            // Scroll document to bottom before scrolling this element
-            if (!((window.innerHeight + window.scrollY) >= document.body.offsetHeight)) {
-              e.preventDefault();
-              window.scrollBy(e.deltaX, e.deltaY);
-            }
-          }}
-        >
-        {this.props.trains.map(train => 
-          this.state.arrivals ? <Arrivals train={train} /> : <Departures train={train} />
-        )}
-        </TrainListWrapper>
+        <SmartScrollResultList>
+          {this.props.trains.map(train => 
+            this.state.arrivals ? <Arrivals train={train} /> : <Departures train={train} />
+          )}
+        </SmartScrollResultList>
         {/*<KnoppiTieto> 6 junaa lähtee seuraavan tunnin aikana </KnoppiTieto>*/}
       </ResultPageWrapper>
     )
@@ -131,4 +105,4 @@ const mapStateToProps = (state: RootState) => ({
   name: state.station.name
 })
 
-export default ReactRedux.connect(mapStateToProps, () => ({}))(ResultPage);
+export default ReactRedux.connect(mapStateToProps, () => ({}))(StationResultPage);
