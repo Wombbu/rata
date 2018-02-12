@@ -1,3 +1,7 @@
 # Rata
+#### ⚠️ Under construction ⚠️
+Real time train timetables for the web. 
 
-Get Finnish train timetables. Easily. Quickly. Without any hassle. Soon. Yeah.
+React & Redux & TypeScript & styled-components
+
+Sequel to [Rata](https://github.com/Wombbu/myohassa).
